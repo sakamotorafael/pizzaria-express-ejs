@@ -118,5 +118,13 @@
     "preco": 38.5,
     "img": "/img/quatroqueijos.jpg",
     "destaque": true
+  },
+  {
+    "id": 16,
+    "nome": "mussarela",
+    "ingredientes": ["queijo", "molho", "tomate"],
+    "preco": "30",
+    "img": null,
+    "destaque": false
   }
 ]
