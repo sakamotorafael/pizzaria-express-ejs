@@ -4,7 +4,7 @@ const pizzaPath = path.join('database','Pizzas.json')
 let cardapioJSON = fs.readFileSync(pizzaPath, {encoding:"utf-8"})
 cardapio = JSON.parse(cardapioJSON)
 
-function addPizza (nome, ingredientes, preco) {
+function addPizza(nome, ingredientes, preco, imagem) {
   
   let pizzasJSON = fs.readFileSync(pizzaPath, {encoding:"utf-8"})
   let pizzas = JSON.parse(pizzasJSON)
@@ -22,8 +22,8 @@ function addPizza (nome, ingredientes, preco) {
       id: id,
       nome: nome,
       ingredientes: ingredientes,
-      preco: preco,
-      img: null,
+      preco: Number(preco),
+      img: imagem,
       destaque: false
     }
   )
@@ -49,8 +49,8 @@ const indexController = {
   },
 
   store: (req, res)=> {
-    let {nome, ingredientes, preco} = req.body
-    addPizza(nome, ingredientes, preco)
+    let {nome, ingredientes, preco, imagem} = req.body
+    addPizza(nome, ingredientes, preco, imagem)
     
     res.redirect('/')
   }

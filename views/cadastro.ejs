@@ -12,7 +12,7 @@
   </head>
   <body>
     <link rel="stylesheet" href="/css/cadastroPizza.css" />
-    <form id="form-pizza" action="/cadastrar" method="POST">
+    <form id="form-pizza" action="/cadastrar" method="POST" enctype="multipart/form-data">
       <label>
         Nome:
         <input
@@ -45,7 +45,7 @@
         Foto:
         <img src="/img/no-image.png" />
         <div>Clique para selecione nova imagem</div>
-        <input type="file" id="img" />
+        <input type="file" id="img" name='imagem' />
       </label>
       <button type="submit">Salvar</button>
     </form>
