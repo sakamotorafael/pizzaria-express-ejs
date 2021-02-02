@@ -4,11 +4,11 @@ const pizzaPath = path.join('database','Pizzas.json')
 let cardapioJSON = fs.readFileSync(pizzaPath, {encoding:"utf-8"})
 cardapio = JSON.parse(cardapioJSON)
 
+
+
 function addPizza(nome, ingredientes, preco, imagem) {
-  
   let pizzasJSON = fs.readFileSync(pizzaPath, {encoding:"utf-8"})
   let pizzas = JSON.parse(pizzasJSON)
-
   let id = pizzas.length + 1
 
   ingredientes = ingredientes.split(',')
@@ -27,6 +27,33 @@ function addPizza(nome, ingredientes, preco, imagem) {
       destaque: false
     }
   )
+  
+  pizzasJSON = JSON.stringify(pizzas)
+
+  fs.writeFileSync(pizzaPath, pizzasJSON)
+}
+
+function editPizza(id, nome, ingredientes, preco, imagem) {
+  let pizzasJSON = fs.readFileSync(pizzaPath, {encoding:"utf-8"})
+  let pizzas = JSON.parse(pizzasJSON)
+  
+  ingredientes = ingredientes.split(',')
+
+  ingredientes.forEach((element, index) => {
+    ingredientes[index] = element.trim()
+  });
+
+  let index = pizzas.forEach((cadaPizza, index) => {
+    if(cadaPizza.id == id){
+      return index
+    }
+  })
+    
+  console.log(index)
+  pizzas[index].nome = nome
+  pizzas[index].ingredientes = ingredientes
+  pizzas[index].preco = preco
+  pizzas[index].imagem = imagem
   
   pizzasJSON = JSON.stringify(pizzas)
 
@@ -53,7 +80,30 @@ const indexController = {
     addPizza(nome, ingredientes, preco, imagem)
     
     res.redirect('/')
+  },
+
+  edit: (req, res)=> {
+    let {id} = req.params
+    let pizza = cardapio.find(pizza => pizza.id == id)
+    return res.render('editar', {pizza})
+  },
+
+  update: (req, res)=> {
+    let {id} = req.params
+    let {nome, ingredientes, preco, imagem} = req.body 
+
+    editPizza(id, nome, ingredientes, preco, imagem)
+    return res.send('editado com sucesso!')
+  },
+
+  login: (req, res) => {
+    return res.render('login')
+  },
+
+  menu: (req, res) => {
+    return res.render('menu')
   }
+
 }
 
 module.exports = indexController
