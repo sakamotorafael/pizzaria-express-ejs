@@ -94,14 +94,6 @@ const indexController = {
 
     editPizza(id, nome, ingredientes, preco, imagem)
     return res.send('editado com sucesso!')
-  },
-
-  login: (req, res) => {
-    return res.render('login')
-  },
-
-  menu: (req, res) => {
-    return res.render('menu')
   }
 
 }

@@ -6,7 +6,7 @@ const logger = require('morgan');
 const methodOverride = require('method-override')
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-
+const session = require('express-session')
 
 const app = express();
 
@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'))
+app.use(session({secret: "123456789"}))
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
