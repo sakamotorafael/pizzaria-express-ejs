@@ -1,6 +1,11 @@
 const fs = require('fs')
 const path = require('path')
 const pizzaPath = path.join('database','Pizzas.json')
+
+const Sequelize = require('sequelize')
+const config = require('../config/database')
+
+
 let cardapioJSON = fs.readFileSync(pizzaPath, {encoding:"utf-8"})
 cardapio = JSON.parse(cardapioJSON)
 
@@ -61,8 +66,11 @@ function editPizza(id, nome, ingredientes, preco, imagem) {
 }
 
 const indexController = {
-  index: (req, res) => {
-    return res.render("index", {cardapio})
+  index: async (req, res) => {
+    const db = new Sequelize(config)
+    let result = await db.query('select * from pizzas', {type:Sequelize.QueryTypes.SELECT})
+    console.log(result)
+    return res.render("index", {result})
   },
 
   pizza: (req, res) => {
